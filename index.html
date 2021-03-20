@@ -1,40 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Code Quiz</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
   </head>
   <body>
-    <h2 id="time"></h2>
+    <header>
+      <div class= "large-font">Code Quiz!</div>
 
-    <section class="card">
-      <h2 id = 'Question'>Coding Quiz Challenge</h2>
-      <p id = 'description'>Test your javascript knowledge by answering the following questions within 60 seconds! The more you get right the higher your score will be. Press the start button to begin!</p>
-      <form id = 'questionForm'>
-        <ul>
-          <li>
-            <input type="radio" id="a" name="gender" value="male">
-            <label id="optionA"></label><br>
-            <input type="radio" id="a" name="gender" value="female">
-            <label id="optionB"></label><br>
-            <input type="radio" id="" name="gender" value="other">
-            <label id ="optionC"></label><br>
-            <input type="radio" id="" name="gender" value="other">
-            <label id = "optionD"></label>
-          </li>
-          <li>
-            <label for="msg"></label>
-          </li>
-        </ul>
 
-      </form> 
-      <button id="start" value="Start">Start</button>
+      <div class= "card timer" id = 'timer'>
+        <div class = "timer-text">
+        <div class="small-font timer-count">60</div>
+        <p>seconds remaining</p>
+      </div>
+    </header>
 
-      <h3 class="message"></h3>   
-    </section>
-    <script src="./assets/js/script.js"></script>
+    <main>
+      <section>
+
+        
+        <div class="card options">
+
+          <h2 id = 'Heading'>Coding Quiz Challenge</h2>
+          <p id = 'description'>Test your javascript knowledge by answering the following questions within 60 seconds! The more you get right the higher your score will be. Press the start button to begin!</p>
+        <h2 id = 'Question'></h2>
+
+          <ul class="radio">
+            <li>
+              <input type="radio" id="r1" name="radAnswer"/>
+              <label for="r1">a</label>
+            </li>
+            <li>
+              <input type="radio" id="r2" name="radAnswer"/>
+              <label for="r2">b</label>
+            </li>
+            <li>
+              <input type="radio" id="r3" name="radAnswer"/>
+              <label for="r3">c</label>
+            </li>
+            <li>
+              <input type="radio" id="r4" name="radAnswer"/>
+              <label for="r4">d</label>
+            </li>
+            <p id = 'rightOrWrong'></p>
+            <button id="start-button" >Start</button>
+            <button id="submit-button">Submit</button>
+            <button id="restart">Again?</button>
+
+
+
+        </div>
+      </section>
+
+        
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/script.js"></script>
   </body>
-</html>
