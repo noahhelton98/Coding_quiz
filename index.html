@@ -11,26 +11,26 @@
   <body>
     <header>
       <div class= "large-font">Code Quiz!</div>
-
-
-      <div class= "card timer" id = 'timer'>
-        <div class = "timer-text">
-        <div class="small-font timer-count">60</div>
-        <p>seconds remaining</p>
-      </div>
     </header>
 
-    <main>
-      <section>
+    <div class="card2" id = 'timer'> 
+      <div class= "timer" >
+        <p id = 'secondsRemaining'>Seconds Remaining:</p>
+        <div class="timer-count">60</div>
+      </div>
+    </div>
 
+
+    <main>
+      <section id = 'mainContent'>
         
         <div class="card options">
 
-          <h2 id = 'Heading'>Coding Quiz Challenge</h2>
+          <h2 id = 'Heading'>Coding Quiz Challenge</h2><br>
           <p id = 'description'>Test your javascript knowledge by answering the following questions within 60 seconds! The more you get right the higher your score will be. Press the start button to begin!</p>
+          <br>
         <h2 id = 'Question'></h2>
-
-          <ul class="radio">
+          <ul id="listQs">
             <li>
               <input type="radio" id="r1" name="radAnswer"/>
               <label for="r1">a</label>
@@ -47,19 +47,38 @@
               <input type="radio" id="r4" name="radAnswer"/>
               <label for="r4">d</label>
             </li>
+            <input type="text" id="initials"name='initials'>
+
             <p id = 'rightOrWrong'></p>
-            <button id="start-button" >Start</button>
             <button id="submit-button">Submit</button>
             <button id="restart">Again?</button>
+            <button id="submit-initials">Submit</button>
+          </ul>
+
+          <button id="start-button" >Start</button>
 
 
 
         </div>
+ 
+
       </section>
 
-        
+
+      <section class="card options" id = 'highscores'>
+
+
       </section>
+    
+
+
     </main>
+    <footer id ='#footer'> 
+      <button id="viewHighscores">Highscores</button>
+    </footer>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/js/script.js"></script>

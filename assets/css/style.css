@@ -19,19 +19,12 @@ body {
   margin-top: 20px;
 }
 
-.win-loss-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-}
-
 button {
   background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,96,33,0.9542191876750701) 100%);
   border-radius: 8px;
   color: #13293d;
   cursor: pointer;
-  font-size: 2em;
-  letter-spacing: 0.21px;
+  font-size: 200%;
   line-height: 16px;
   max-width: 255px;
   padding: 20px 52px;
@@ -40,10 +33,12 @@ button {
   transition-property: background-color;
   transition-timing-function: linear;
   margin-top: 0.6em;
+  width: auto;
+  height: auto;
 }
 
 header {
-  padding: 40px;
+  padding: 20px;
   text-align: center;
   background: #13293d;
   color: #fff;
@@ -77,6 +72,7 @@ section {
 }
 
 .card {
+  display: flex;
   background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,124,33,0.604079131652661) 100%);
   border: 1px solid #eceff1;
   border-radius: 8px;
@@ -87,30 +83,41 @@ section {
 }
 
 
+.card2 {
+  display: flex;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(240,230,140,1) 0%, rgba(187,124,33,0.604079131652661) 100%);
+  border: 1px solid #eceff1;
+  box-shadow: rgba(60, 64, 67, 2) 0 1px 2px 0,
+    rgba(60, 64, 67, 0.15) 0 2px 4px 3px;
+  font-size: 1.5rem;
+  text-align: center;
+  width: auto;
+  height: auto;
+}
+
+.timer-count {
+  display: inline-block;
+}
+#secondsRemaining {
+  display: inline-block;
+}
+
 .large-font {
   font-size: 3.5em;
   text-align:center;
 }
 
-.timer {
-  height: 240px;
-  padding: 10px;
-  background: #13293d;
-  color: #fff;
-  text-align: center;
-  
-}
-
-.timer-text {
-  padding: 55px;
-}
 
 li{
   list-style: none;
 }
 
 
-
+footer {
+display: flex;
+justify-content: center;
+}
 
 
 @media screen and (max-width: 1183px) {

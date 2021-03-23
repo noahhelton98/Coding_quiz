@@ -1,19 +1,31 @@
 //Get variables that we will work with for the quiz
 var startBtn = $('#start-button');
 var submitBtn = $("#submit-button");
+var initialBtn = $('#submit-username');
 var restartBtn = $('#restart');
+var listQEl = $('#listQs');
+var submitInitialsEl = $('#submit-initials');
+
 var questionText = $('#Question');
 var optionsEl = $("input[type='radio']");
 var labelArr = $("label");
-var rightOrWrong = $('#rightOrWrong')
-var score = 0;
-var header = $('#Heading')
-var description = $('#description')
+var rightOrWrong = $('#rightOrWrong');
 
+var header = $('#Heading');
+var description = $('#description');
+var initialContent = $("input[type='text']");
+
+var highscoreEl = $('#highscores');
+
+
+//Hiding stuff p
+listQEl.hide();
+initialContent.hide();
 restartBtn.hide();
-labelArr.hide();
-optionsEl.hide();
 submitBtn.hide();
+submitInitialsEl.hide()
+highscoreEl.hide()
+
 //create questions object
 var questions =  {
     questionOne: {
@@ -43,39 +55,9 @@ var questions =  {
     }
 };
 
-
-//Timer Function 
-var timerElement = document.querySelector(".timer-count");
-var timer;
-var timerCount = 60;
-
-
-$('#timer').hide();
-
-function startTimer() {
-    // Sets timer
-    timer = setInterval(function() {
-        $('#timer').show();
-        timerCount--;
-        timerElement.textContent = timerCount;
-
-      if (timerCount === 0) {
-        // Clears interval
-        clearInterval(timer);
-        header.show();
-        header.text('You ran out of time!! Click the button to refresh and try again');
-        submitBtn.hide();
-        restartBtn.show();
-        restartBtn.on('click', function (){
-            location.reload();
-        })
-
-      }
-    }, 1000);
-  }
   
 
-
+//Other important variables
 var optionsQ1 = shuffleOptions(questions.questionOne.options);
 var optionsQ2 = shuffleOptions(questions.questionTwo.options);
 var optionsQ3 = shuffleOptions(questions.questionThree.options);
@@ -85,11 +67,17 @@ var optionsQ5 = shuffleOptions(questions.questionFive.options);
 var qArray = [optionsQ1,optionsQ2,optionsQ3,optionsQ4,optionsQ5];
 var questionsStrings = [questions.questionOne.text, questions.questionTwo.text, questions.questionThree.text, questions.questionFour.text, questions.questionFive.text];
 var answerStrings = [questions.questionOne.answer, questions.questionTwo.answer, questions.questionThree.answer, questions.questionFour.answer, questions.questionFive.answer];
+var score = 0;
+
+
+
 
 
 //On click start function 
+startBtn.on('click', function(event){
+    event.preventDefault();
 
-startBtn.on('click', function(){
+    listQEl.show();
     startTimer();
     startBtn.hide();
     header.hide();
@@ -109,9 +97,12 @@ startBtn.on('click', function(){
 })
 
 
+//Each question submit button
 var i = 0;
 
-submitBtn.on('click', function(){
+submitBtn.on('click', function(event){
+    event.preventDefault();
+
 
     if (i == 0){
         checkIfRight(answerStrings[i]);
@@ -155,7 +146,13 @@ submitBtn.on('click', function(){
         $("[name = 'radAnswer']:checked").prop('checked', false);
         console.log(i)    
     } else if (i == 4){
+        submitInitialsEl.show()
+
+        clearInterval(timer);
+        $('#timer').hide();
         checkIfRight(answerStrings[i])
+
+        initialContent.show();
 
         submitBtn.hide();
         restartBtn.show();
@@ -180,6 +177,49 @@ function checkIfRight(answer){
     }
 }
 
+
+
+//Useful Functions
+//Shuffle function 
+function shuffleOptions(arr){
+    var outArr = arr
+    for (let i = outArr.length -1; i > 0; i--){
+        let j = Math.floor(Math.random()*(i+1));
+        [outArr[i], outArr[j]] = [outArr[j], outArr[i]];
+    }
+    return outArr
+}; 
+
+//Timer Function 
+var timerElement = document.querySelector(".timer-count");
+var timer;
+var timerCount = 60;
+
+
+
+function startTimer() {
+    // Sets timer
+    timer = setInterval(function() {
+        //$('#timer').show();
+        timerCount--;
+        timerElement.textContent = timerCount;
+
+      if (timerCount == 0) {
+        // Clears interval
+        clearInterval(timer);
+        header.show();
+        header.text('You ran out of time!! Click the button to refresh and try again');
+        submitBtn.hide();
+        restartBtn.show();
+        restartBtn.on('click', function (){
+        location.reload();
+        })
+
+      }
+    }, 1000);
+  }
+
+
 //Shuffle function 
 function shuffleOptions(arr){
     var outArr = arr
@@ -193,115 +233,40 @@ function shuffleOptions(arr){
 
 
 
-/* 
+//Save score to local storage 
+var highscores = JSON.parse(localStorage.getItem("highscores"));
+console.log(highscores)
 
-for ( var i =0; i > questionsAnswered.length; i++){
- 
-    startBtn.on('click', function (){
-    submitAnswer(questionsAnswered[i])
-    startBtn.text('Submit');
-    var optionsQ1 = shuffleOptions(questions.questionOne.options)
-    var optionsQ2 = shuffleOptions(questions.questionTwo.options)
-    var optionsQ3 = shuffleOptions(questions.questionThree.options)
-    var optionsQ4 = shuffleOptions(questions.questionFour.options)
-    var optionsQ5 = shuffleOptions(questions.questionFive.options)
-    
-    
-    })
-
-}
-
-startBtn.on('click', function(){
-    startBtn.text('Submit');
-    optionsEl.show();
-    labelArr.show();
-    questionNumber = 'Q1'
-
-
-    /* if (questionNumber == 'Q1'){
-        questionText.text(questions.questionOne.text);
-        for (i = 0; i < labelArr.length; i++){
-            labelArr[i].innerHTML = shuffleOptions(questions.questionOne.options[i])
-        };
-        checkIfRight(questionOne);
-        questionNumber = 'Q2';
+submitInitialsEl.on('click', function(event){
+    var newScore = {
+        initials: initialContent.val(),
+        scores: score
     }
-  
-
-
-    if (questionNumber == 'Q2'){
-        for (i = 0; i < labelArr.length; i++){
-            labelArr[i].innerHTML = shuffleOptions(questions.questionOne.options[i])
-        }
-    }
-
-
-
-}) */
-    
-//submit Button 
-/* if (questionNumber == 'Q1'){
-    submitBtn.on('click', function (){
-        questionText.text(questions.questionOne.text);
-
-
-        for (i = 0; i < labelArr.length; i++){
-            labelArr[i].innerHTML = shuffleOptions(questions.questionOne.options[i])
-        }
-
-
-        var answerChoice = $("[name = 'radAnswer']:checked +label").text();
-
-        if (answerChoice == questions.questionOne.answer){
-            score += 10;
-            rightOrWrong.text('Correct!');
-
-        }else {
-            rightOrWrong.text('Incorrect');
-        }
-        questionNumber = 'Q2';
-        console.log(questionNumber)
-    })
-}
-
-if (questionNumber === 'Q2'){
-    submitBtn.on('click', function (){
-        questionText.text(questions.questionTwo.text)
-        for (i = 0; i < labelArr.length; i++){
-            labelArr[i].innerHTML = shuffleOptions(questions.questionTwo.options[i])
-        }
-        checkIfRight(quesionTwo)
-    })
-} */
-
-//submitBtn.on('click', submit(questions.questionOne));
-//submitBtn.on('click', submit(questions.questionTwo));
-//submitBtn.on('click', submit(questions.questionThree));
-//submitBtn.on('click', submit(questions.questionFour));
-//submitBtn.on('click', submit(questions.questionFive));
-
-
-//check if answer is right 
-
-/*
-function checkIfRight(number){
-
-    var answerChoice = $("[name = 'radAnswer']:checked +label").text();
-    if (answerChoice == questions.number.answer){
-        score += 10;
-        rightOrWrong.text('Correct!');
+    if (!highscores){
+        highscores = [];
+        highscores.push(newScore);
     }else{
-        rightOrWrong.text('Incorrect');
-    }
-}
-*/
+        highscores.push(newScore);
 
-//Shuffle function 
-function shuffleOptions(arr){
-    var outArr = arr
-    for (let i = outArr.length -1; i > 0; i--){
-        let j = Math.floor(Math.random()*(i+1));
-        [outArr[i], outArr[j]] = [outArr[j], outArr[i]];
     }
-    return outArr
-}; 
+
+    localStorage.setItem('highscores', JSON.stringify(highscores))
+
+})
+
+
+
+
+//Highscores page 
+
+var highscoreBtn = $('#viewHighscores');
+
+highscoreBtn.on('click', function(){
+    $('#').hide();
+    highscoreEl.show();
+})
+
+
+
+
+
