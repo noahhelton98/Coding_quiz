@@ -280,6 +280,17 @@ submitInitialsEl.on('click', function(event){
         }
     
         localStorage.setItem('highscores', JSON.stringify(highscores))
+
+        var retrievedScores = JSON.parse(localStorage.getItem("highscores"));
+        var scoresTabEl = $('#scoresTable')
+
+        if (retrievedScores){
+            for (var i = 0; i < retrievedScores.length; i++) {
+                scoresTabEl.append( "<tr><td>" +  retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>" );
+                scoresTabEl.innerHTML += "<tr><td>" + retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>";
+    }
+}
+
     }
 })
 
@@ -307,6 +318,7 @@ $('#reload').on('click', function(){
 
 $('#clear').on('click', function(){
     localStorage.clear();
+    $('#scoresTable').hide();
 })
 
 
