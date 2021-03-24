@@ -28,6 +28,24 @@ highscoreEl.hide();
 $('#reload').hide();
 $('#clear').hide();
 
+
+//get scores
+var retrievedScores = JSON.parse(localStorage.getItem("highscores"));
+var scoresTabEl = $('#scoresTable')
+
+if (retrievedScores){
+    for (var i = 0; i < retrievedScores.length; i++) {
+        console.log( retrievedScores[i].initials)
+        console.log( retrievedScores[i].scores)
+        scoresTabEl.append( "<tr><td>" +  retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>" );
+    
+    
+        scoresTabEl.innerHTML += "<tr><td>" + retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>";
+    }
+}
+
+
+
 //create questions object
 var questions =  {
     questionOne: {
@@ -148,6 +166,7 @@ submitBtn.on('click', function(event){
         $("[name = 'radAnswer']:checked").prop('checked', false);
         console.log(i)    
     } else if (i == 4){
+        i = 0;
         submitInitialsEl.show()
 
         clearInterval(timer);
@@ -283,19 +302,7 @@ $('#clear').on('click', function(){
     localStorage.clear();
 })
 
-var retrievedScores = JSON.parse(localStorage.getItem("highscores"));
-var scoresTabEl = $('#scoresTable')
 
-if (retrievedScores){
-    for (var i = 0; i < retrievedScores.length; i++) {
-        console.log( retrievedScores[i].initials)
-        console.log( retrievedScores[i].scores)
-        scoresTabEl.append( "<tr><td>" +  retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>" );
-    
-    
-        scoresTabEl.innerHTML += "<tr><td>" + retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>";
-    }
-}
 
 
 
