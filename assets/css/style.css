@@ -55,7 +55,6 @@ section {
   flex: 0 auto;
   padding: 8px;
   margin-top: 50px;
-  background-color: white;
   border-radius: 8px;
   justify-content: center;
 }
@@ -113,11 +112,18 @@ li{
   list-style: none;
 }
 
+table {
+  margin-left: 20%;
+  margin-bottom: 40%;
+}
+
 
 footer {
 display: flex;
 justify-content: center;
 }
+
+
 
 
 @media screen and (max-width: 1183px) {
@@ -127,7 +133,6 @@ justify-content: center;
 
 
   section {
-    background-color: white;
     margin: 20px auto;
     width: 92vw;
   }

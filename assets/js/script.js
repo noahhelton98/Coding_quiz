@@ -1,7 +1,6 @@
 //Get variables that we will work with for the quiz
 var startBtn = $('#start-button');
 var submitBtn = $("#submit-button");
-var initialBtn = $('#submit-username');
 var restartBtn = $('#restart');
 var listQEl = $('#listQs');
 var submitInitialsEl = $('#submit-initials');
@@ -166,12 +165,13 @@ submitBtn.on('click', function(event){
         $("[name = 'radAnswer']:checked").prop('checked', false);
         console.log(i)    
     } else if (i == 4){
+        checkIfRight(answerStrings[i])
+
         i = 0;
         submitInitialsEl.show()
-
+        questionText.text('Congrats! You finished the quiz and scored ' + score + '/50! Enter your initials in the text box below and click submit to save your highscore.' )
         clearInterval(timer);
         $('#timer').hide();
-        checkIfRight(answerStrings[i])
 
         initialContent.show();
         optionsEl.hide();
@@ -230,7 +230,11 @@ function startTimer() {
       if (timerCount == 0) {
         // Clears interval
         clearInterval(timer);
-        questionText.text('You ran out of time!');
+        questionText.text('You ran out of time! You finished the quiz and scored ' + score + '/50! Enter your initials in the text box below and click submit to save your highscore.' );
+        initialContent.show();
+        optionsEl.hide();
+        labelArr.hide();
+
         submitBtn.hide();
         restartBtn.show();
         restartBtn.on('click', function (){
@@ -260,20 +264,23 @@ var highscores = JSON.parse(localStorage.getItem("highscores"));
 console.log(highscores)
 
 submitInitialsEl.on('click', function(event){
-    var newScore = {
-        initials: initialContent.val(),
-        scores: score
-    }
-    if (!highscores){
-        highscores = [];
-        highscores.push(newScore);
+    if (!initialContent.val()){
+        alert('Please enter your initials')
     }else{
-        highscores.push(newScore);
-
+        var newScore = {
+            initials: initialContent.val(),
+            scores: score
+        }
+        if (!highscores){
+            highscores = [];
+            highscores.push(newScore);
+        }else{
+            highscores.push(newScore);
+    
+        }
+    
+        localStorage.setItem('highscores', JSON.stringify(highscores))
     }
-
-    localStorage.setItem('highscores', JSON.stringify(highscores))
-
 })
 
 
