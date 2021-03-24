@@ -23,35 +23,37 @@ listQEl.hide();
 initialContent.hide();
 restartBtn.hide();
 submitBtn.hide();
-submitInitialsEl.hide()
-highscoreEl.hide()
+submitInitialsEl.hide();
+highscoreEl.hide();
+$('#reload').hide();
+$('#clear').hide();
 
 //create questions object
 var questions =  {
     questionOne: {
-        text: 'what is this?',
-        options: ['a', 'b', 'cskakahksh', 'd'],
-        answer: ['a']
+        text: 'What does the DOM stand for?',
+        options: ['Document Object Model', 'Developing on Modules', 'Document Orientation Mode', 'Developer Object Model'],
+        answer: ['Document Object Model']
     }, 
     questionTwo: {
-        text: 'what is that?',
-        options: ['x', 'y', 'z', 'q'],
-        answer: ['x']
+        text: 'What type of data can be stored in an array?',
+        options: ['Strings', 'Numbers', 'Booleans', 'All of the Above'],
+        answer: ['All of the Above']
     },
     questionThree: {
-        text: 'Who?',
-        options: ['r', 's', 'f', 'g'],
-        answer: ['r']
+        text: 'jQuery is a/an _____.',
+        options: ['API', 'DOM', 'programmimg language', 'algorithm'],
+        answer: ['API']
     },
     questionFour: {
-        text: 'Me?',
-        options: ['v', 'n', 'k', 'j'],
-        answer: ['v']
+        text: 'How can we save items to our web browser?',
+        options: ['localStorage.setItem()', 'store.items()', 'setItems(localStorage)', 'Document.setStorage(item)'],
+        answer: ['localStorage.setItem()']
     },
     questionFive: {
-        text: 'Where?',
-        options: ['q', 'w', 'e', 'r'],
-        answer: ['q']
+        text: 'How do you declare a JavaScript variable?',
+        options: ['var myVariable', 'variable = myVariable', 'v.myVariable', 'declare(variable) = myVariable'],
+        answer: ['var myVariable']
     }
 };
 
@@ -153,6 +155,8 @@ submitBtn.on('click', function(event){
         checkIfRight(answerStrings[i])
 
         initialContent.show();
+        optionsEl.hide();
+        labelArr.hide();
 
         submitBtn.hide();
         restartBtn.show();
@@ -207,8 +211,7 @@ function startTimer() {
       if (timerCount == 0) {
         // Clears interval
         clearInterval(timer);
-        header.show();
-        header.text('You ran out of time!! Click the button to refresh and try again');
+        questionText.text('You ran out of time!');
         submitBtn.hide();
         restartBtn.show();
         restartBtn.on('click', function (){
@@ -262,9 +265,37 @@ submitInitialsEl.on('click', function(event){
 var highscoreBtn = $('#viewHighscores');
 
 highscoreBtn.on('click', function(){
-    $('#').hide();
+    highscoreBtn.hide();
+    $('#mainContent').hide();
     highscoreEl.show();
+    $('#reload').show();
+    $('#clear').show();
+    $('#timer').hide();
+
 })
+
+$('#reload').on('click', function(){
+    location.reload();
+})
+
+
+$('#clear').on('click', function(){
+    localStorage.clear();
+})
+
+var retrievedScores = JSON.parse(localStorage.getItem("highscores"));
+var scoresTabEl = $('#scoresTable')
+
+if (retrievedScores){
+    for (var i = 0; i < retrievedScores.length; i++) {
+        console.log( retrievedScores[i].initials)
+        console.log( retrievedScores[i].scores)
+        scoresTabEl.append( "<tr><td>" +  retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>" );
+    
+    
+        scoresTabEl.innerHTML += "<tr><td>" + retrievedScores[i].initials + "</td><td>" + retrievedScores[i].scores + "</td></tr>";
+    }
+}
 
 
 
